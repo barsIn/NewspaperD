@@ -1,0 +1,52 @@
+from news.models import *
+user1 = User.objects.create_user("Васичкин Иван Сергеевич")
+user2 = User.objects.create_user("Петров Петр Васильевич")
+author1 = Author.objects.create(user=user1)
+author2 = Author.objects.create(user=user2)
+Category.objects.create(category_name='Политика')
+Category.objects.create(category_name='Спорт')
+Category.objects.create(category_name='Искуство')
+Category.objects.create(category_name='Моё')
+category1 = Category.objects.get(pk=1)
+category2 = Category.objects.get(pk=2)
+category3 = Category.objects.get(pk=3)
+post1 = Post.objects.create(post_heading="Про биткойн простыми словами", post_text="Тут написан текст статьи про биткойн", rating=0, post_type='PS', author=author1)
+post2 = Post.objects.create(post_heading="Футбол правда или вымысел?", post_text="Тут написан текст статьи про футбол", rating=0, post_type='PS', author=author2)
+post3 = Post.objects.create(post_heading="Новости спорта", post_text="Тут новостной текст", rating=0, post_type='NW', author=author2)
+post1.category.add(category1)
+post1.category.add(category2)
+post2.category.add(category3)
+post3.category.add(category2)
+for i in range(50):
+    post1.like()
+    post2.like()
+    post3.like()
+for i in range(15):
+    post1.dislike()
+    post2.dislike()
+    post3.dislike()
+for i in range(50):
+    post2.like()
+    post3.like()
+for i in range(50):
+    post3.like()
+for authors in Author.objects.all():
+    authors.update_rating()
+Author.objects.all().order_by('-author_rating')[0].user.username
+Author.objects.all().order_by('-author_rating')[0].author_rating
+sorted_posts = Post.objects.all().order_by('-rating')[0]
+sorted_posts.publication_date
+sorted_posts.author.user.username
+sorted_posts.rating
+sorted_posts.post_heading
+postscomments = sorted_posts.comment_set.all()
+for i in postscomments:
+    i.create_comment_time
+    i.author.username
+    i.comment_rating
+    i.comment_text
+
+
+
+author2 = Author.objects.get(pk=2)
+author1 = Author.objects.get(pk=1)
