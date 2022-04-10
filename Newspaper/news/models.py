@@ -11,14 +11,14 @@ class Post(models.Model):
     post_heading = models.CharField(max_length=64)
     post_text = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0)
     changepublication_date = models.DateTimeField(auto_now=True)
     post_type = models.CharField(max_length=2,
                                  choices=POST_CHOICES,
                                  default='NW')
 
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    category = models.ManyToManyField('Category', through='PostCategory')
+    category = models.ManyToManyField('Category', through='PostCategory', blank=True)
 
     def like(self):
         self.rating += 1
@@ -50,10 +50,11 @@ class Author(models.Model):
                 posts_rating += post.rating
                 for comment in post.comment_set.all():
                     posts_coments_rating += comment.comment_rating
-        author_comments = self.comment_set.all()
+        author_user = self.user
+        author_comments = author_user.comment_set.all()
         if author_comments.exists():
             for i in author_comments:
-                comments_rating += i[0]
+                comments_rating += i.comment_rating
         self.author_rating = posts_rating * 3 + comments_rating + posts_coments_rating
         self.save()
 
