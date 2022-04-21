@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% block title %}
+NEWS
+{% endblock title %}
+
+{% block front %}
+ALL NEWS
+{% endblock front %}
+
+{% block content %}
+    <H1>Всего загружено {{news|length}} новостей</H1>
+    <table>
+        <tr>
+        <td>Заголовок</td>
+        <td>Дата публикации</td>
+        <td>Текст</td>
+        <td>Рейтинг</td>
+        </tr>
+
+        {% for post in news %}
+        <tr>
+            <td>{{post.post_heading}}</td>
+            <td>{{post.publication_date|date:'M d Y'}}</td>
+            <td>{{post.post_text|censor|truncatechars:20}}</td>
+            <td>{{post.rating}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ flatpage.title }}
+{% endblock title %}
+{% block content %}
+<h2><span style="color: #808000;">{{ flatpage.title }} Тут я играюсь со шрифтами&nbsp;<img src="https://html5-editor.net/tinymce/plugins/emoticons/img/smiley-cry.gif" alt="cry" /></span></h2>
+<ol>
+<li><span style="color: #808000;">Во первых это бесполезно</span></li>
+<li><span style="color: #808000;">Во-вторых всё равно учить HTML и CSS</span></li>
+<li><span style="color: #808000;">Но это я создал через&nbsp;<em>Wysiwyg-</em>редактор</span></li>
+</ol>
+<h2><span style="color: #ffcc00;"><em><strong>Ну а может я не так понял текст задачи в 1.4.3.</strong></em></span></h2>
+<p><span style="color: #33cccc;"><em><strong>Ну а как тут понять, что значит моё приложение?</strong></em></span></p>
+<table style="height: 92px;" width="255">
+<tbody>
+<tr>
+<td style="width: 77.6562px;">НУ</td>
+<td style="width: 77.6562px;">И&nbsp;</td>
+<td style="width: 77.6875px;">Табличку</td>
+</tr>
+<tr>
+<td style="width: 77.6562px;">Вставить&nbsp;</td>
+<td style="width: 77.6562px;">Мне&nbsp;</td>
+<td style="width: 77.6875px;">кажется</td>
+</tr>
+<tr>
+<td style="width: 77.6562px;">необходимо</td>
+<td style="width: 77.6562px;">
+<p>ДА?</p>
+</td>
+<td style="width: 77.6875px;">Конечно</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp; {{ flatpage.content }}</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+
+    <h2>{{ flatpage.title }}</h2>
+
+{{ flatpage.content }}
+{% endblock content %}

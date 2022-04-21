@@ -20,6 +20,10 @@ class Post(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
     category = models.ManyToManyField('Category', through='PostCategory', blank=True)
 
+    def __str__(self):
+        return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}'
+
+
     def like(self):
         self.rating += 1
         self.save()

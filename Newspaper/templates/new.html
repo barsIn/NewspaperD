@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}
+NEWS
+{% endblock title %}
+
+{% block front %}
+{{ new.post_heading }}
+{% endblock front %}
+
+{% block content %}
+
+<H1>{{ new.post_heading|censor }}</H1>
+<br> <h2>Опубликовано {{new.publication_date|date:'M d Y'}}</h2>
+{% endblock content %}
+{% block text %}
+ {{new.post_text|censor}}
+<br> Рейтинг новости {{new.rating}}
+{% endblock text %}
