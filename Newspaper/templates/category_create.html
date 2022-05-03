@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% block title %}
+Создание категории
+{% endblock title %}
+
+{% block front %}
+Создание категории
+{% endblock front %}
+
+{% block content %}
+
+
+<h3>Новаяй категория</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить Категорию">
+</form>
+
+
+{% endblock content %}

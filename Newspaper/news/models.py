@@ -23,6 +23,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}'
 
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
 
     def like(self):
         self.rating += 1
@@ -43,6 +46,9 @@ class Author(models.Model):
     last_online = models.DateTimeField(auto_now=True)
     is_autor_online = models.BooleanField(default=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username}'
 
     def update_rating(self):
         posts_rating = 0
@@ -82,6 +88,12 @@ class Comment(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return f'{self.category_name}'
+
+    def get_absolute_url(self):
+        return f'/news/category/{self.id}'
 
 
 class PostCategory(models.Model):

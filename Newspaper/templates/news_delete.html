@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block front %}
-{{ new.post_heading|truncatechars:20 }}
+Удаление Поста
 {% endblock front %}
 
 {% block content %}
@@ -16,4 +16,9 @@
 {% block text %}
  {{new.post_text|censor}}
 <br> Рейтинг новости {{new.rating}}
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить">
+</form>
+
 {% endblock text %}

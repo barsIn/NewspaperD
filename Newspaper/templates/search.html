@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% block title %}
+SEARCH
+{% endblock title %}
+
+{% block front %}
+NEWS SEARCH
+{% endblock front %}
+
+{% block content %}
+
+
+<form method="GET">
+    {{ filter.form }}
+    <input type="date">
+    <input type="submit" value="Найти">
+</form>
+    <table>
+        <tr>
+        <td>Заголовок</td>
+        <td>Дата публикации</td>
+        <td>Текст</td>
+        <td>Рейтинг</td>
+        </tr>
+
+        {% for search in filter.qs %}
+        <tr>
+            <td><a href="{{post.id}}">{{search.post_heading}}</a></td>
+            <td>{{search.publication_date|date:'d m Y'}}</td>
+            <td>{{search.post_text|censor|truncatechars:20}}</td>
+            <td>{{search.rating}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock content %}
