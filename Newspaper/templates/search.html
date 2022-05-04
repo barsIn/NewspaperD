@@ -25,7 +25,7 @@ NEWS SEARCH
         <td>Рейтинг</td>
         </tr>
 
-        {% for search in filter.qs %}
+        {% for search in search %}
         <tr>
             <td><a href="{{post.id}}">{{search.post_heading}}</a></td>
             <td>{{search.publication_date|date:'d m Y'}}</td>
@@ -34,6 +34,26 @@ NEWS SEARCH
         </tr>
         {% endfor %}
     </table>
+{% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}"><<</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                   {% if page_obj.number == num %}
+                        <a>{{ num }}</a>
+                   {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                       <a href="?page={{ num }}">{{ num }}</a>
+                   {% endif %}
+                {% endfor %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">>></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                {% endif %}
+            {% endif %}
+
 
 
 {% endblock content %}

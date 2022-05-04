@@ -18,7 +18,7 @@ class Post(models.Model):
                                  default='NW')
 
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    category = models.ManyToManyField('Category', through='PostCategory', blank=True)
+    category = models.ManyToManyField('Category', through='PostCategory', blank=True, related_name='posts')
 
     def __str__(self):
         return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}'

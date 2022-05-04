@@ -28,12 +28,21 @@ class NewsSearch(ListView):
     model = Post
     template_name = 'search.html'
     context_object_name = 'search'
+    paginate_by = 5
+    ordering = ['rating']
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
+    def get_filter(self):
+        return PostFilter(self.request.GET, queryset=super().get_queryset())
 
-        return context
+    def get_queryset(self):
+        return self.get_filter().qs
+
+    def get_context_data(self, *args, **kwargs):
+
+        return {
+            **super().get_context_data(*args, **kwargs),
+            'filter': self.get_filter(),
+        }
 
 class NewsCreate(CreateView):
     template_name = 'news_create.html'
@@ -52,10 +61,13 @@ class NewsUpdate(UpdateView):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
+
 class NewsDelete(DeleteView):
+    model = Post
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+    context_object_name = 'new'
 
 
 

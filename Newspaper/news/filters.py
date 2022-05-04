@@ -19,6 +19,7 @@ class PostFilter(FilterSet):
 
         fields = {'post_heading': ['icontains'],
                   'author': ['exact'],
+                  'category__category_name': ['icontains'],
 
 
 
