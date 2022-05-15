@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% block title %}
+Редактирование новости
+{% endblock title %}
+
+{% block front %}
+Редактирование новости
+{% endblock front %}
+
+{% block content %}
+
+
+<h3>{{new.post_heading|truncatewords:10}}</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Отредактировать Новость">
+</form>
+
+
+{% endblock content %}

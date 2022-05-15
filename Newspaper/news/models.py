@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 class Post(models.Model):
     POST_CHOICES = [
         ('NW', 'Новость'),
@@ -49,6 +50,9 @@ class Author(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
+    def get_absolute_url(self):
+        return f'/news/author/{self.id}'
 
     def update_rating(self):
         posts_rating = 0

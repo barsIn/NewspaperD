@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Post, Category
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Post, Category, Author, User
 from .filters import PostFilter
-from .forms import PostForm, CategoryForm
+from .forms import PostForm, CategoryForm, AuthorForm, UserForm
 
 class NewsView(ListView):
     model = Post
@@ -44,17 +45,19 @@ class NewsSearch(ListView):
             'filter': self.get_filter(),
         }
 
-class NewsCreate(CreateView):
+class NewsCreate(LoginRequiredMixin, CreateView):
     template_name = 'news_create.html'
     form_class = PostForm
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     template_name = 'category_create.html'
     form_class = CategoryForm
 
-class NewsUpdate(UpdateView):
-    template_name = 'news_create.html'
+class NewsUpdate(LoginRequiredMixin, UpdateView):
+    template_name = 'news_update.html'
     form_class = PostForm
+    model = Post
+    context_object_name = 'new'
 
 
     def get_object(self, **kwargs):
@@ -68,6 +71,25 @@ class NewsDelete(DeleteView):
     queryset = Post.objects.all()
     success_url = '/news/'
     context_object_name = 'new'
+
+
+class AuthorView(DetailView):
+    model = Author
+    template_name = 'author.html'
+    context_object_name = 'author'
+
+
+class AuthorUpdate(LoginRequiredMixin, UpdateView):
+    form_class = AuthorForm
+    template_name = 'author_update.html'
+    model = Author
+    context_object_name = 'author'
+
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    form_class = UserForm
+    template_name = 'user_update.html'
+    model = User
+    context_object_name = 'user'
 
 
 

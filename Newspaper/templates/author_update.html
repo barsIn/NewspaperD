@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% block title %}
+Корректировка {{ author.user.username }}
+{% endblock title %}
+
+{% block front %}
+Редактируем {{ author.user.username }}
+{% endblock front %}
+
+{% block content %}
+
+
+<h3>Редактирование автора</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Сохранить">
+</form>
+
+
+{% endblock content %}
