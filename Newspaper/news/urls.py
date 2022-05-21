@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate
+from .views import NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView
 
 urlpatterns = [
     path('', NewsView.as_view()),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('<int:pk>/delete', NewsDelete.as_view(), name='news_delete'),
     path('author/<int:pk>', AuthorView.as_view(), name='author'),
     path('author/<int:pk>/edit', AuthorUpdate.as_view(), name='author_update'),
-    path('user/<int:pk>/edit', UserUpdate.as_view(), name='user_update')
+    path('user/<int:pk>/edit', UserUpdate.as_view(), name='user_update'),
+    path('user/<int:pk>', UserView.as_view(), name='user'),
 ]

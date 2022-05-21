@@ -20,8 +20,6 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">{% block front %} {%endblock front%}</a>
-                <a class="navbar-brand" href='{% url 'user' user.id %}'>{{ user.username}}</a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -29,7 +27,7 @@
                         <li class="nav-item"><a class="nav-link" href="/news/search">Поиск</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'category_create' %}">Создание категории</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'news_create' %}">Создание Поста</a></li>
-
+                        <li class="nav-item"><a class="nav-link" href="/third/">Double</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -47,9 +45,12 @@
         <div class="container">
    <div class="row">
        <div class="col-lg-12 text-center">
-           {% block content %}
-           <h1>{{ flatpage.content }} </h1>
-           {% endblock content %}
+           {% block body %}
+        {% block content %}
+        {% endblock content %}
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
        </div>
        <div class="col-lg-12 text-left">
            {% block text %}

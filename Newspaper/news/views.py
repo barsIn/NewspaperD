@@ -91,6 +91,11 @@ class UserUpdate(LoginRequiredMixin, UpdateView):
     model = User
     context_object_name = 'user'
 
+class UserView(DetailView):
+    model = User
+    template_name = 'user.html'
+    context_object_name = 'user'
+
 
 
 
