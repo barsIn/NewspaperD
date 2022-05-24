@@ -20,7 +20,14 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">{% block front %} {%endblock front%}</a>
+                {% if user.id %}
+                <a class="navbar-brand" href="{% url 'account_logout' %}">Выйти</a>
+                {% endif %}
+                {% if user.id %}
                 <a class="navbar-brand" href='{% url 'user' user.id %}'>{{ user.username}}</a>
+                {% else %}
+                <a class="navbar-brand" href="{% url 'account_login' %}">ВОЙТИ</a>
+                {% endif %}
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

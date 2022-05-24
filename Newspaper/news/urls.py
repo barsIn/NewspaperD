@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView
+from .views import NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me
 
 urlpatterns = [
     path('', NewsView.as_view()),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('author/<int:pk>/edit', AuthorUpdate.as_view(), name='author_update'),
     path('user/<int:pk>/edit', UserUpdate.as_view(), name='user_update'),
     path('user/<int:pk>', UserView.as_view(), name='user'),
+    path('accounts/', include('allauth.urls')),
+    path('user/upgrade/', upgrade_me, name='userupgrade'),
 ]

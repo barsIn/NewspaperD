@@ -9,6 +9,11 @@
 {% block content %}
 
 <H1> {{ user.username }} </H1>
+{% if not author %}
+<button> <a href="{% url 'userupgrade'%}"> Хочу стать автором!</a> </button>
+{% else %}
+<h3>Ты уже автор</h3>
+{% endif %}
 
 
 
