@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2> Здравствуй, {{ user.username }}. Новая статья в твоём любимом разделе {{ sub_categorys }}!</h2>
+    {% for post in news %}
+        <tr>
+            <td><a href="{% url 'news_detail' post.id %}">{{post.post_heading}}</a></td>
+            <td>{{post.publication_date|date:'d m Y'}}</td>
+            <td>{{post.post_text}}</td>
+
+
+        </tr>
+        {% endfor %}
+
+</body>
+</html>

@@ -340,6 +340,11 @@ button {
 button:focus:not(:focus-visible) {
   outline: 0;
 }
+.cutegory_subscribe{
+    height:50px;
+    width:120px;
+    size: 10px;
+}
 
 input,
 button,

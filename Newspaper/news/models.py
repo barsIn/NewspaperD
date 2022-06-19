@@ -18,11 +18,11 @@ class Post(models.Model):
                                  choices=POST_CHOICES,
                                  default='NW')
 
-    author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    category = models.ManyToManyField('Category', through='PostCategory', blank=True, related_name='posts')
+    author = models.ForeignKey('Author', on_delete=models.CASCADE, related_name='author')
+    category = models.ManyToManyField('Category', through='PostCategory', blank=True, related_name='category')
 
     def __str__(self):
-        return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}'
+        return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}, каткгории {self.category.all()}'
 
     def get_absolute_url(self):
         return f'/news/{self.id}'
@@ -49,7 +49,7 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f'Автор {self.user.username}'
 
     def get_absolute_url(self):
         return f'/news/author/{self.id}'
@@ -92,6 +92,8 @@ class Comment(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=64, unique=True)
+
+    user = models.ManyToManyField(User, blank=True, related_name='users_of_category')
 
     def __str__(self):
         return f'{self.category_name}'

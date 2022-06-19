@@ -8,9 +8,12 @@ from django.contrib.auth.models import Group
 class PostForm(ModelForm):
     check_box = BooleanField(label='Я принимаю условия соглашения')
 
+
     class Meta:
         model = Post
-        fields = ['post_heading', 'post_text', 'post_type', 'author', 'category']
+        fields = ['post_heading', 'post_text', 'post_type', 'category']
+
+
 
 
 class CategoryForm(ModelForm):

@@ -16,4 +16,17 @@
 {% block text %}
  {{new.post_text|censor}}
 <br> Рейтинг новости {{new.rating}}
+<br> Категории:
+{% for category in categorys %}
+{{ category.category_name }}
+{% if not user in category.user.all %}
+<button onclick="window.location.href = '{% url 'category_subscribe' category.id %}';">Подписаться</button>
+{% else %}
+<button onclick="window.location.href = '{% url 'category_unsubscribe' category.id %}';">Отписаться</button>
+{% endif %}
+
+
+
+{% endfor %}
+
 {% endblock text %}
