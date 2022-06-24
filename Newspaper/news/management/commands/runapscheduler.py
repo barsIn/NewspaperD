@@ -86,7 +86,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             my_job,
             # trigger=CronTrigger(minute="*/2"),
-            trigger=CronTrigger(day_of_week="mon"),
+            зtrigger=CronTrigger(day_of_week="mon"),
             # То же, что и интервал, но задача тригера таким образом более понятна django
             id="my_job",  # уникальный айди
             max_instances=1,
