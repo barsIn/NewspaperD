@@ -4,16 +4,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from .models import Post, Category, Author, User
 from .filters import PostFilter
 from .forms import PostForm, CategoryForm, AuthorForm, UserForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from dotenv import load_dotenv
+from .tasks import hello, printer
 from django.core.mail import send_mail, EmailMultiAlternatives
 import os
 from django.template.loader import render_to_string
+from django.views import View
+from datetime import datetime, timedelta
 
 load_dotenv()
+
+
+class IndexView(View):
+    def get(self, request):
+        hello.delay()
+        printer.apply_async([10],
+                            eta=datetime.now() + timedelta(seconds=5),
+                            expires=datetime.now() + timedelta(seconds=8))
+        return HttpResponse('Hello!')
 
 
 class NewsView(ListView):
@@ -24,14 +36,10 @@ class NewsView(ListView):
     paginate_by = 10
 
 
-
-
 class NewView(DetailView):
     model = Post
     template_name = 'new.html'
     context_object_name = 'new'
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,7 +70,6 @@ class NewsSearch(ListView):
         return self.get_filter().qs
 
     def get_context_data(self, *args, **kwargs):
-
         return {
             **super().get_context_data(*args, **kwargs),
             'filter': self.get_filter(),
@@ -76,66 +83,58 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     permission_denied_message = 'У Вас недостаточно прав'
 
     def form_valid(self, form):
-
         fields = form.save(commit=False)
         fields.author = Author.objects.get(user=self.request.user)
         fields.save()
         return super().form_valid(form)
 
-    # def post(self, request, *args, **kwargs):
-    #     form = self.form_class(request.POST)
-    #     if form.is_valid():
-    #         self.form_valid(form)
-    #         form.save()
-    #     heading = request.POST['post_heading']
-    #     post_body = request.POST['post_text']
-    #     category = request.POST.getlist('category')
-    #     user = self.request.user
-    #     for id in category:
-    #         categ = Category.objects.get(id=id)
-    #         subscribers = categ.user.all()
-    #         id = len(Post.objects.all())
-    #         print(f'Вот номер id {id}')
-    #
-    #         if subscribers.exists():
-    #
-    #             for sub in subscribers:
-    #
-    #                 html_content = render_to_string(
-    #                     'subs_sent.html',
-    #                     {
-    #                         'user': sub,
-    #                         'heading': heading,
-    #                         'post': post_body,
-    #                         'category': categ.category_name,
-    #                         'post_id': id,
-    #                     }
-    #                 )
-    #                 msg = EmailMultiAlternatives(
-    #                     subject='Hello from news portal',
-    #                     body=f'Новая новость в категории {categ}',  # это то же, что и message
-    #                     from_email=os.getenv('MY_MAIL'),
-    #                     to=[sub.email],  # это то же, что и recipients_list
-    #                 )
-    #                 msg.attach_alternative(html_content, "text/html")
-    #                 msg.send()
-                    # send_mail(
-                    #     subject=f'{categ} {user}',
-                    #     # имя клиента и дата записи будут в теме для удобства
-                    #     message=f'Новая новость в категории {categ}',  # сообщение с кратким описанием проблемы
-                    #     from_email=os.getenv('MY_MAIL'),
-                    #     # здесь указываете почту, с которой будете отправлять (об этом попозже)
-                    #     recipient_list=[sub.email]  # здесь список получателей. Например, секретарь, сам врач и т. д.
-                    # )
-
-
+        # def post(self, request, *args, **kwargs):
+        #     form = self.form_class(request.POST)
+        #     if form.is_valid():
+        #         self.form_valid(form)
+        #         form.save()
+        #     heading = request.POST['post_heading']
+        #     post_body = request.POST['post_text']
+        #     category = request.POST.getlist('category')
+        #     user = self.request.user
+        #     for id in category:
+        #         categ = Category.objects.get(id=id)
+        #         subscribers = categ.user.all()
+        #         id = len(Post.objects.all())
+        #         print(f'Вот номер id {id}')
+        #
+        #         if subscribers.exists():
+        #
+        #             for sub in subscribers:
+        #
+        #                 html_content = render_to_string(
+        #                     'subs_sent.html',
+        #                     {
+        #                         'user': sub,
+        #                         'heading': heading,
+        #                         'post': post_body,
+        #                         'category': categ.category_name,
+        #                         'post_id': id,
+        #                     }
+        #                 )
+        #                 msg = EmailMultiAlternatives(
+        #                     subject='Hello from news portal',
+        #                     body=f'Новая новость в категории {categ}',  # это то же, что и message
+        #                     from_email=os.getenv('MY_MAIL'),
+        #                     to=[sub.email],  # это то же, что и recipients_list
+        #                 )
+        #                 msg.attach_alternative(html_content, "text/html")
+        #                 msg.send()
+        # send_mail(
+        #     subject=f'{categ} {user}',
+        #     # имя клиента и дата записи будут в теме для удобства
+        #     message=f'Новая новость в категории {categ}',  # сообщение с кратким описанием проблемы
+        #     from_email=os.getenv('MY_MAIL'),
+        #     # здесь указываете почту, с которой будете отправлять (об этом попозже)
+        #     recipient_list=[sub.email]  # здесь список получателей. Например, секретарь, сам врач и т. д.
+        # )
 
         return redirect('/news/')
-
-
-
-
-
 
 
 class CategoryCreate(PermissionRequiredMixin, CreateView):
@@ -152,7 +151,6 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
     context_object_name = 'new'
     permission_required = ('news.change_post')
     permission_denied_message = 'У Вас недостаточно прав'
-
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -216,6 +214,7 @@ def upgrade_me(request):
         id = author1.id
     return redirect(f'/news/author/{id}')
 
+
 @login_required
 def subscribe_category(request, pk):
     user = request.user
@@ -225,6 +224,7 @@ def subscribe_category(request, pk):
     else:
         category.user.add(user)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 @login_required
 def unsubscribe_category(request, pk):
@@ -240,6 +240,3 @@ def unsubscribe_category(request, pk):
 
 class CategorySubscribe(LoginRequiredMixin, UpdateView):
     pass
-
-
-

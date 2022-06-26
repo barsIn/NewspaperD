@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me, subscribe_category, unsubscribe_category
+from .views import IndexView, NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me, subscribe_category, unsubscribe_category
 
 urlpatterns = [
     path('', NewsView.as_view(), name='all_news'),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('user/upgrade/', upgrade_me, name='userupgrade'),
     path('category/subscribe/<int:pk>', subscribe_category, name='category_subscribe'),
     path('category/unsubscribe/<int:pk>', unsubscribe_category, name='category_unsubscribe'),
+    path('task', IndexView.as_view()),
 ]
