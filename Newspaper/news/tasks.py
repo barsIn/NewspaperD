@@ -7,7 +7,6 @@ from .models import Post, Category
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
-
 load_dotenv()
 
 
@@ -21,12 +20,11 @@ def hello():
 def printer(N):
     for i in range(N):
         time.sleep(1)
-        print(i+1)
+        print(i + 1)
 
 
 @shared_task
 def category_send():
-
     lat_time = datetime.now() - timedelta(weeks=1)
     categorys = set()
     subs = set()
@@ -70,27 +68,22 @@ def category_send():
 
 
 @shared_task
-def new_post_created(instance):
-    subers = []
-    for cat in instance.category.all():
-        for sub in cat.user.all():
-            subers.append(sub)
-        for user in subers:
-            html_content = render_to_string(
-                'subs_sent.html',
-                {
-                    'user': user,
-                    'heading': instance.post_heading,
-                    'post': instance.post_text,
-                    'category': cat,
-                    'post_id': instance.id,
-                }
-            )
-            msg = EmailMultiAlternatives(
-                subject='Hello from news portal',
-                body=f'Новая новость в категории {cat}',  # это то же, что и message
-                from_email=os.getenv('MY_MAIL'),
-                to=[user.email],  # это то же, что и recipients_list
-            )
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+def new_post_created(cat, email, name, post_heading, post_text, id):
+    html_content = render_to_string(
+            'subs_sent.html',
+            {
+                'user': name,
+                'heading': post_heading,
+                'post': post_text,
+                'category': cat,
+                'post_id': id,
+            }
+        )
+    msg = EmailMultiAlternatives(
+        subject='Hello from news portal',
+        body=f'Новая новость в категории {cat}',  # это то же, что и message
+        from_email=os.getenv('MY_MAIL'),
+        to=[email],  # это то же, что и recipients_list
+    )
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
