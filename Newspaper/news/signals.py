@@ -38,5 +38,5 @@ def subscribers_mailing(sender, instance, action, **kwargs):
                 # )
 
                 # msg.attach_alternative(html_content, "text/html")
-                new_post_created.delay([cat, user.email, user.username, instance.post_heading, instance.post_text, instance.id])
+                new_post_created.delay(cat.category_name, user.email, user.username, instance.post_heading, instance.post_text, instance.id)
 

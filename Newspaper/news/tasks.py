@@ -69,6 +69,7 @@ def category_send():
 
 @shared_task
 def new_post_created(cat, email, name, post_heading, post_text, id):
+    print(f'{cat}, {email}, {name}, {post_text}, {post_heading}, {id}')
     html_content = render_to_string(
             'subs_sent.html',
             {
