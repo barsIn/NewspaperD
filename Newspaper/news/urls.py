@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 from .views import IndexView, NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me, subscribe_category, unsubscribe_category
+from django.views.decorators.cache import cache_page
+
 
 urlpatterns = [
-    path('', NewsView.as_view(), name='all_news'),
-    path('<int:pk>', NewView.as_view(), name='news_detail'),
+    path('', cache_page(60)(NewsView.as_view()), name='all_news'),
+    path('<int:pk>', cache_page(300)(NewView.as_view()), name='news_detail'),
     path('search', NewsSearch.as_view(), name='news_search'),
     path('create', NewsCreate.as_view(), name='news_create'),
     path('create/category', CategoryCreate.as_view(), name='category_create'),
