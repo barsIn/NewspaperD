@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.cache import cache
 
 
 
@@ -22,11 +23,14 @@ class Post(models.Model):
     category = models.ManyToManyField('Category', through='PostCategory', blank=True, related_name='category')
 
     def __str__(self):
-        return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}, каткгории {self.category.all()}'
+        return f'{self.post_heading.title()} популярный пост, его рейтинг {self.rating}, категории {self.category.all()}'
 
     def get_absolute_url(self):
         return f'/news/{self.id}'
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+        cache.delete(f'post-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
 
     def like(self):
         self.rating += 1

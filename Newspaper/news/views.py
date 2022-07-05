@@ -16,9 +16,10 @@ from django.template.loader import render_to_string
 from django.views import View
 from datetime import datetime, timedelta
 from django.core.cache import cache
+import logging
 
 load_dotenv()
-
+logger = logging.getLogger(__name__)
 
 class IndexView(View):
     def get(self, request):
