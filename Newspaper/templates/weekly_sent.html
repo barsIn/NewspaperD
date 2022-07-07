@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 </head>
 <body>
 
-    <h2> Здравствуй, {{ user.username }}. Новая статья в твоём любимом разделе {{ sub_categorys }}!</h2>
+    <h2> {% trans 'Helo' %}, {{ user.username }}. {% trans 'A new post in your favorite section' %} {{ sub_categorys }}!</h2>
     {% for post in news %}
         <tr>
             <td><a href="{% url 'news_detail' post.id %}">{{post.post_heading}}</a></td>

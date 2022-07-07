@@ -1,12 +1,13 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_tags %}
+{% load i18n %}
 {% load custom_filters %}
 {% block title %}
-Редактирование новости
+{% trans 'Editing Post' %}
 {% endblock title %}
 
 {% block front %}
-Редактирование новости
+{% trans 'Editing Post' %}
 {% endblock front %}
 
 {% block content %}
@@ -16,7 +17,7 @@
 <form method="POST">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Отредактировать Новость">
+    <input type="submit" value="{% trans 'Edit Post' %}">
 </form>
 
 

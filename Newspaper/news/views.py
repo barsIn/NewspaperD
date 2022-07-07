@@ -10,16 +10,25 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from dotenv import load_dotenv
 from .tasks import hello, printer
-from django.core.mail import send_mail, EmailMultiAlternatives
-import os
-from django.template.loader import render_to_string
 from django.views import View
 from datetime import datetime, timedelta
 from django.core.cache import cache
 import logging
+from django.utils.translation import gettext as _
+from django.utils import timezone
+from django.shortcuts import redirect
+import pytz
 
 load_dotenv()
 logger = logging.getLogger(__name__)
+
+
+class Index(View):
+    def get(self, request):
+        string = _('Hello world')
+
+        return HttpResponse(string)
+
 
 class IndexView(View):
     def get(self, request):
@@ -27,7 +36,8 @@ class IndexView(View):
         printer.apply_async([10],
                             eta=datetime.now() + timedelta(seconds=5),
                             expires=datetime.now() + timedelta(seconds=8))
-        return HttpResponse('Hello!')
+        string = _('Hello')
+        return HttpResponse(string)
 
 
 class NewsView(ListView):
@@ -42,18 +52,18 @@ class NewView(DetailView):
     model = Post
     template_name = 'new.html'
     context_object_name = 'new'
+    curent_time = timezone.now()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.now()
+        return context
 
-    def get_object(self, *args, **kwargs):
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
-        obj = cache.get(f'post-{self.kwargs["pk"]}',
-                        None)
 
-
-        if not obj:
-            obj = super().get_object(queryset=self.queryset)
-            cache.set(f'post-{self.kwargs["pk"]}', obj)
-
-        return obj
 
     def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта, как ни странно
 
@@ -106,7 +116,7 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     template_name = 'news_create.html'
     form_class = PostForm
     permission_required = ('news.add_post')
-    permission_denied_message = 'У Вас недостаточно прав'
+    permission_denied_message = _('Permission denied')
 
     def form_valid(self, form):
         fields = form.save(commit=False)
@@ -167,7 +177,7 @@ class CategoryCreate(PermissionRequiredMixin, CreateView):
     template_name = 'category_create.html'
     form_class = CategoryForm
     permission_required = ('news.add_category')
-    permission_denied_message = 'У Вас недостаточно прав'
+    permission_denied_message = _('Permission denied')
 
 
 class NewsUpdate(PermissionRequiredMixin, UpdateView):
@@ -176,7 +186,7 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
     model = Post
     context_object_name = 'new'
     permission_required = ('news.change_post')
-    permission_denied_message = 'У Вас недостаточно прав'
+    permission_denied_message = _('Permission denied')
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')

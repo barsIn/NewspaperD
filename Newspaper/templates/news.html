@@ -1,6 +1,7 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_tags %}
 {% load custom_filters %}
+{% load i18n %}
 {% block title %}
 NEWS
 {% endblock title %}
@@ -10,13 +11,13 @@ ALL NEWS
 {% endblock front %}
 
 {% block content %}
-    <H1>Всего загружено {{news|length}} новостей</H1>
+    <H1>{% trans 'Downloaded ' %} {{news|length}} {% trans 'news' %}</H1>
     <table>
         <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Текст</td>
-        <td>Рейтинг</td>
+        <td>{% trans 'heading' %}</td>
+        <td>{% trans 'date of publication' %}</td>
+        <td>{% trans 'text' %}</td>
+        <td>{% trans 'rating' %}</td>
         <td></td>
         <td></td>
         </tr>
@@ -27,14 +28,14 @@ ALL NEWS
             <td>{{post.publication_date|date:'d m Y'}}</td>
             <td>{{post.post_text|censor|truncatechars:20}}</td>
             <td>{{post.rating}}</td>
-            <td><button onclick="window.location.href = '{% url 'news_update' post.id %}';">Редактировать</button></td>
-            <td><button onclick="window.location.href = '{% url 'news_delete' post.id %}';">Удалить</button></td>
+            <td><button onclick="window.location.href = '{% url 'news_update' post.id %}';">{% trans 'Edit' %}</button></td>
+            <td><button onclick="window.location.href = '{% url 'news_delete' post.id %}';">{% trans 'Delete' %}</button></td>
         </tr>
         {% endfor %}
         </table>
-<button onclick="window.location.href = '{% url 'category_create' %}';">Добавить категорию</button>
+<button onclick="window.location.href = '{% url 'category_create' %}';">{% trans 'Create category' %}</button>
 
-<button onclick="window.location.href = '{% url 'news_create' %}';">Добавить новость</button>
+<button onclick="window.location.href = '{% url 'news_create' %}';">{% trans 'Add Post' %}</button>
 <br>
         {% if is_paginated %}
                 {% if page_obj.has_previous %}
@@ -52,7 +53,7 @@ ALL NEWS
     <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
                 {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">>></a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'last' %}</a>
                 {% endif %}
             {% endif %}
 

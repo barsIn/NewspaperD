@@ -1,5 +1,6 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_filters %}
+{% load i18n %}
 {% block title %}
 {{ author.user.username }}
 {% endblock title %}
@@ -11,11 +12,11 @@
 {% block content %}
 
 <H1> {{ author.user.username }} </H1>
-<br> <h2> Зарегистрирован {{author.registration_date|date:'M d Y'}}</h2>
+<br> <h2> {% trans 'Registrated' %} {{author.registration_date|date:'M d Y'}}</h2>
 {% if author.is_autor_online %}
-<br> <h2> Пользователь в сети </h2>
+<br> <h2> {% trans 'User online' %} </h2>
 {% else %}
-<br> <h2> Пользователь не в сети </h2>
+<br> <h2> {% trans 'User offline' %} </h2>
 {% endif %}
 
 

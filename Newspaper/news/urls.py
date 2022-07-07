@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import IndexView, NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me, subscribe_category, unsubscribe_category
+from .views import Index, IndexView, NewsView, NewView, NewsSearch, NewsCreate, CategoryCreate, CategoryView, NewsUpdate, NewsDelete, AuthorView, AuthorUpdate, UserUpdate, UserView, upgrade_me, subscribe_category, unsubscribe_category
 from django.views.decorators.cache import cache_page
 
 
@@ -22,4 +22,5 @@ urlpatterns = [
     path('category/subscribe/<int:pk>', subscribe_category, name='category_subscribe'),
     path('category/unsubscribe/<int:pk>', unsubscribe_category, name='category_unsubscribe'),
     path('task', IndexView.as_view()),
+    path('test', Index.as_view()),
 ]

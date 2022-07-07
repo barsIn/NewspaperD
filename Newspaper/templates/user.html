@@ -1,5 +1,5 @@
 {% extends 'flatpages/default.html' %}
-
+{% load i18n %}
 {% block title %}
 {{ user.username }}
 {% endblock title %}
@@ -10,9 +10,9 @@
 
 <H1> {{ user.username }} </H1>
 {% if not author %}
-<button> <a href="{% url 'userupgrade'%}"> Хочу стать автором!</a> </button>
+<button> <a href="{% url 'userupgrade'%}"> {% trans 'I want to become an author!' %} </a> </button>
 {% else %}
-<h3>Ты уже автор</h3>
+<h3>{% trans 'You are already the author' %}</h3>
 {% endif %}
 
 

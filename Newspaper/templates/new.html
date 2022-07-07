@@ -1,5 +1,6 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_filters %}
+{% load i18n %}
 {% block title %}
 {{ new.post_heading|truncatewords:4 }}
 {% endblock title %}
@@ -11,18 +12,18 @@
 {% block content %}
 
 <H1>{{ new.post_heading|censor }}</H1>
-<br> <h2>Опубликовано {{new.publication_date|date:'M d Y'}}</h2>
+<br> <h2>{% trans 'Published' %} {{new.publication_date|date:'M d Y'}}</h2>
 {% endblock content %}
 {% block text %}
  {{new.post_text|censor}}
-<br> Рейтинг новости {{new.rating}}
-<br> Категории:
+<br> {% trans 'Post`s rating' %} {{new.rating}}
+<br> {% trans 'Categorys' %}:
 {% for category in categorys %}
 {{ category.category_name }}
 {% if not user in category.user.all %}
-<button onclick="window.location.href = '{% url 'category_subscribe' category.id %}';">Подписаться</button>
+<button onclick="window.location.href = '{% url 'category_subscribe' category.id %}';">{% trans 'Subscribe' %}</button>
 {% else %}
-<button onclick="window.location.href = '{% url 'category_unsubscribe' category.id %}';">Отписаться</button>
+<button onclick="window.location.href = '{% url 'category_unsubscribe' category.id %}';">{% trans 'Unsubscribe' %}</button>
 {% endif %}
 
 

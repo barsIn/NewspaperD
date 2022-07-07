@@ -1,22 +1,23 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_tags %}
 {% load custom_filters %}
+{% load i18n %}
 {% block title %}
-Создание новости
+{% trans 'Creation Post' %}
 {% endblock title %}
 
 {% block front %}
-Создание новости
+{% trans 'Creation Post' %}
 {% endblock front %}
 
 {% block content %}
 
 
-<h3>Новый пост</h3>
+<h3>{% trans 'New Post' %}</h3>
 <form method="POST">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Добавить Новость">
+    <input type="submit" value="{% trans 'New Post' %}">
 </form>
 
 

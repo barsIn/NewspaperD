@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.cache import cache
+from django.utils.translation import gettext as _
+from django.utils.translation import pgettext_lazy
 
 
 
@@ -10,7 +12,7 @@ class Post(models.Model):
         ('PS', 'Статья'),
     ]
 
-    post_heading = models.CharField(max_length=64)
+    post_heading = models.CharField(max_length=64, help_text=_('post heading'))
     post_text = models.TextField()
     publication_date = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
@@ -19,7 +21,7 @@ class Post(models.Model):
                                  choices=POST_CHOICES,
                                  default='NW')
 
-    author = models.ForeignKey('Author', on_delete=models.CASCADE, related_name='author')
+    author = models.ForeignKey('Author', on_delete=models.CASCADE, related_name='author', verbose_name=pgettext_lazy('help text for author', 'This is the help text'),)
     category = models.ManyToManyField('Category', through='PostCategory', blank=True, related_name='category')
 
     def __str__(self):

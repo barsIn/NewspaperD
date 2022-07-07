@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-07 05:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: news/models.py:15
+msgid "post heading"
+msgstr "заголовок поста"
+
+#: news/models.py:24
+msgctxt "help text for author"
+msgid "This is the help text"
+msgstr "Это текст для помощи"
+
+#: news/views.py:28
+msgid "Hello world"
+msgstr "Привет мир"
+
+#: news/views.py:39 templates/subs_sent.html:11
+msgid "Hello"
+msgstr "Привет"
+
+#: news/views.py:119 news/views.py:180 news/views.py:189
+msgid "Permission denied"
+msgstr "Отказано в доступе"
+
+#: templates/author.html:15
+msgid "Registrated"
+msgstr "Зарегистрирован"
+
+#: templates/author.html:17
+msgid "User online"
+msgstr "пользователь в сети"
+
+#: templates/author.html:19
+msgid "User offline"
+msgstr "Пользователь не в сети"
+
+#: templates/author_update.html:6 templates/author_update.html:10
+#: templates/news.html:31
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/author_update.html:16
+msgid "editing the author"
+msgstr "редактирование автора"
+
+#: templates/author_update.html:20 templates/user_update.html:20
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/category.html:5 templates/new.html:20
+msgid "Categorys"
+msgstr "Категории"
+
+#: templates/category_create.html:6 templates/category_create.html:10
+msgid "Creating the category"
+msgstr "Создание категории"
+
+#: templates/category_create.html:16
+msgid "New category"
+msgstr "Новая категория"
+
+#: templates/category_create.html:20
+msgid "Add category"
+msgstr "Добавить категорию"
+
+#: templates/flatpages/default.html:32
+msgid "Time zone"
+msgstr "Часовой пояс"
+
+#: templates/flatpages/default.html:45
+msgid "Log out "
+msgstr "Выйти"
+
+#: templates/flatpages/default.html:50
+msgid "Log in "
+msgstr "Войти"
+
+#: templates/flatpages/default.html:56
+msgid "News "
+msgstr "Новости"
+
+#: templates/flatpages/default.html:57
+msgid "Search "
+msgstr "Поиск"
+
+#: templates/flatpages/default.html:58 templates/news.html:36
+msgid "Create category"
+msgstr "Создать категорию"
+
+#: templates/flatpages/default.html:59
+msgid "Create new Post "
+msgstr "Создать пост"
+
+#: templates/flatpages/default.html:73
+msgid "set "
+msgstr "ОК"
+
+#: templates/new.html:15
+msgid "Published"
+msgstr "Опубликован"
+
+#: templates/new.html:19 templates/news_delete.html:19 templates/search.html:26
+msgid "Post`s rating"
+msgstr "Рейтинг поста"
+
+#: templates/new.html:24
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: templates/new.html:26
+msgid "Unsubscribe"
+msgstr "Отписаться"
+
+#: templates/news.html:14
+msgid "Downloaded "
+msgstr "Загружено"
+
+#: templates/news.html:14
+msgid "news"
+msgstr "новости"
+
+#: templates/news.html:17
+msgid "heading"
+msgstr "заголовок"
+
+#: templates/news.html:18
+msgid "date of publication"
+msgstr "дата публикации"
+
+#: templates/news.html:19
+msgid "text"
+msgstr "текст"
+
+#: templates/news.html:20
+msgid "rating"
+msgstr "рейтинг"
+
+#: templates/news.html:32
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/news.html:38
+msgid "Add Post"
+msgstr "Добавить Пост"
+
+#: templates/news.html:56 templates/search.html:54
+msgid "last"
+msgstr "Последняя"
+
+#: templates/news_create.html:6 templates/news_create.html:10
+msgid "Creation Post"
+msgstr "Создать пост"
+
+#: templates/news_create.html:16 templates/news_create.html:20
+msgid "New Post"
+msgstr "Новый Пост"
+
+#: templates/news_delete.html:9
+msgid "Delete Post"
+msgstr "Удалить пост"
+
+#: templates/news_delete.html:15
+msgid "published"
+msgstr "опубликовано"
+
+#: templates/news_delete.html:22
+msgid "confirm"
+msgstr "подтвердить"
+
+#: templates/news_update.html:6 templates/news_update.html:10
+msgid "Editing Post"
+msgstr "Редактирование поста"
+
+#: templates/news_update.html:20
+msgid "Edit Post"
+msgstr "Редактировать Пост"
+
+#: templates/search.html:6
+msgid "SEARCH"
+msgstr "ПОИСК"
+
+#: templates/search.html:10
+msgid "POSTS SEARCH"
+msgstr "ПОИСК ПОСТА"
+
+#: templates/search.html:19
+msgid "Find"
+msgstr "Найти"
+
+#: templates/search.html:23
+msgid "Hearding"
+msgstr "Заголовок"
+
+#: templates/search.html:24
+msgid "Published date"
+msgstr "Дата публикации"
+
+#: templates/search.html:25
+msgid "Text"
+msgstr "Текст"
+
+#: templates/search.html:40
+msgid "First"
+msgstr "Первая"
+
+#: templates/subs_sent.html:11 templates/weekly_sent.html:11
+msgid "A new post in your favorite section"
+msgstr "Новый пост в твоей любимой категории"
+
+#: templates/user.html:13
+msgid "I want to become an author!"
+msgstr "Хочу стать автором"
+
+#: templates/user.html:15
+msgid "You are already the author"
+msgstr "Ты уже автор"
+
+#: templates/user_update.html:6 templates/user_update.html:10
+msgid "Editing"
+msgstr "Редактирование"
+
+#: templates/weekly_sent.html:11
+msgid "Helo"
+msgstr "Привет"

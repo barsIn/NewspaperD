@@ -1,24 +1,25 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_filters %}
+{% load i18n %}
 {% block title %}
 {{ new.post_heading|truncatewords:4 }}
 {% endblock title %}
 
 {% block front %}
-Удаление Поста
+{% trans 'Delete Post' %}
 {% endblock front %}
 
 {% block content %}
 
 <H1>{{ new.post_heading|censor }}</H1>
-<br> <h2>Опубликовано {{new.publication_date|date:'M d Y'}}</h2>
+<br> <h2>{% trans 'published' %} {{new.publication_date|date:'M d Y'}}</h2>
 {% endblock content %}
 {% block text %}
  {{new.post_text|censor}}
-<br> Рейтинг новости {{new.rating}}
+<br> {% trans 'Post`s rating' %} {{new.rating}}
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="подтвердить">
+    <input type="submit" value="{% trans 'confirm' %}">
 </form>
 
 {% endblock text %}
